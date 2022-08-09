@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex06함수.html</title>
+</head>
+<body>
+    <h1>함수</h1>
+    <script>
+        /*
+        * 함수 2가지 방식
+        [1] function 함수명([매개변수,..]){...}
+            => hoisting (끌어올림) 지원된다 = 함수호출은 메소드보다 위든 아래든 상관없다
+
+
+        [2] var 변수명=function([매개변수,...]){...}  
+            => 리터럴 (literal) 방식으로 함수 구성
+            (변수에 값을 할당하는 방식. 그래서 함수도 일종의 자료유형인 것)
+            리터럴 방식은 함수를 구성한 후에야 호출가능(hoisting X)
+            최근 많이 쓰는 방식!
+        
+          *함수는 구성한 후에 호출해야 기능한다!                                              
+         */
+        plus("Good", "Luck") //hoisting (끌어올림)
+        //multiple(2,3); // [x] 여기서 오류나면 아래의 코드 전체가 실행안됨
+
+        function plus(a, b){
+            window.document.write("<h2>"+a+"+"+b+"="+(a+b)+"</h2>");
+        }
+
+        var multiple=function(a, b){
+            document.write("<h2>"+a+"x"+b+"="+(a*b)+"</h2>")
+        }
+
+        plus(10,20); 
+        plus(45.123, 77.894);
+
+        multiple(5,9);
+        multiple(25.78, 11,23)
+    </script>
+    
+</body>
+</html>

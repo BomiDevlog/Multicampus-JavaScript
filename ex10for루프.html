@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex10for루프.html</title>
+</head>
+<body>
+    <h1>반복문-for루프문</h1>
+    <script>
+        for(var i=0;i<5;i++){
+            document.write("Hello: "+i,"<br>");
+        }//증가
+        for(j=3;j>-1;j--){
+            document.write("JavaScript: "+j,"<br>");
+        }//감소
+
+        document.write("<hr color='aquamarine'>");
+
+        var dan=prompt("구구단의 몇 단을 할까요?",2);
+        document.write(`<h1>${dan} 단</h1>`);
+
+        //[2] 입력받은 단이 짝수단이면 테이블 배경색을 yellow로 주고
+        //     홀수단이면 lime색으로 주세요
+        dan=Number(dan); //string에서 number유형으로 변경
+        var cr='white';// 기본은 흰색.
+        cr=(dan%2==0)?'yellow':'lime';//삼항연산자로 조건걸어줌. (조건식)이 true이면 yellow, false이면 lime
+        
+
+        //[1] for루프 이용해서 구구단을 출력하세요
+        //    단, table태그를 이용해서 테이블 형태로 출력하세요
+        var str="<table border='1' width='150px' style='background:"+cr+"'>";
+
+
+                for(var i=1; i<10; i++){
+                    str+="<tr>";
+                    str+="<td style='text-align:center'>";
+                        str+=dan+"x"+i+"="+(dan*i);
+                    //text-align:center하니 글자가 td의 중앙에 위치
+                    str+="</td>";
+                    str+="</tr>";
+                }// for------------------
+                str+="</table>";
+
+            document.write(str);
+        
+        /*유종완
+        var str="<table border='1'>";
+            str+="<tr>";
+                for(var i=1;i<10;i++){
+                    str+="<td>"+dan+"x"+i+"="+(dan*i)+"</td>";
+                }
+            str+="</tr>";
+            str+="</table>";
+        document.write(str, "<br>");//br없으면 한칸안에 한줄로 나옴
+        //세로
+        var str2="<table border='1'>";
+            for(var i=1;i<10;i++){
+                str2+="<tr>"+"<td>"+dan+"x"+i+"="+(dan*i)+"</td>"+"</tr>";
+            }
+            str2+="</table>"
+        document.write(str2);*/
+
+       /* 내가 풀던 것
+       var str="<table border='1'>"; //일단 화면이 나오고 프로그래밍을 구성하는게 순서입니다!
+            str+="<tr>";
+                str+="<td>여기에 구구단식";
+                    for(var i=1;i<=9;i++){
+                        str+=dan+"x"+i+"="+dan*i,"<br>";
+                    }
+                str+="</td>"
+            str+="</tr>";
+            str+="</table>"; // +=로 문자열을 계속 넣는것이 중요한 포인트!
+            
+            document.write(str);*/
+        
+        //2번 내가 풀던것. 적용이 안된다..ㅜㅜ
+       /* if (dan%2==0){
+            document.write(`<h1 style="backgrond-color: yellow"></h1>`); 
+        }else{
+            document.write(`<h1 style="backgrond-color: lime"></h1>`); 
+        }*/
+
+        
+
+
+    </script>
+    
+</body>
+</html>

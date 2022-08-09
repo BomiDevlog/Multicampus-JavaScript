@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex05변수scope.html</title>
+</head>
+<body>
+    <h1>전역변수, 지역변수, 매개변수</h1>
+    <script type="text/javascript">
+
+        var global="전역변수";
+        //바깥에서 선언. 전역에서 사용가능.
+
+        function hello(){
+            var local="지역변수";
+            // 함수나 메소드 블럭내에서 변수선언하면 지역변수이다. 해당 블럭 내에서만 사용가능.
+            aaa=500; //var를 생략하고 변수선언, 초기화 => 전역변수로 사용됨!
+            alert('global='+global);
+            alert('local='+local); 
+        }
+
+       
+
+        function hi(name){
+            //name: 매개변수는 var를 생략하고 변수명만 기술함. 매개변수도 지역변수.
+            alert('hi() global='+global);
+            //alert('hi() local='+local); //[x] //아무것도 안나옴. hello()에서만 사용가능한 local변수라서.
+            //alert('hihihi'); //위에서 에러로 실행중단되어서 출력안됨 괄호밖으로 나가서 이후의 코드는 실행하기에 함수호출된것.
+            alert('hihihi aaa='+aaa)// hello를 먼저 호출했기에 값이 전역변수로 쓰이지만, hello호출안되면 값을 찾을수 없다고에러.
+            alert('Hi '+name);
+        }
+
+        hello();//함수호출 => global, local 모두 출력
+        //hi();//매개변수 안넣으면 Hi undefined 로 출력됨. 에러는 안남
+        hi('King');
+        
+        ///웹에서 F12 누르면 개발자도구(devTools)나옴
+
+    </script>
+</body>
+</html>
