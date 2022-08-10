@@ -22,7 +22,7 @@
     <!-- 클릭하면 디스플레이 none->block 해서 눈에 보이게 나옴-->
     <button onclick="go()">Go Go</button> 
     <button onclick="stop()">Stop</button>
-    <button id="gg" onclick="goGoogle()">3초 뒤에 구글로 이동</button>
+    <button onclick="goGoogle()">3초 뒤에 구글로 이동</button>
     <button onclick="move()">Move</button>
     <!-- 
        [1] goGoogle()함수에서 location 이용해서 3초 뒤에 구글로 이동
@@ -48,7 +48,7 @@
         }
 
         function go(){
-// 쿼리셀렉터는 아이디에# 클래스에.붙음
+        // 쿼리셀렉터는 아이디에# 클래스에.붙음
             let obj=document.querySelector('#circle');
             //alert(obj);
             //반환하는 값을 나타내는 변수 wid=window.setTimeout(함수명,밀리초) : 밀리초 이후에 함수를 1번만 호출 *밀리초=1/1000초
@@ -58,25 +58,31 @@
         }
         
         function stop(){
-            if(wid!=null)
-                window.clearTimeout(wid);//중지시킴 왜 중지가 안돼냐
+            if(wid!=null) // stop이 작동안함 해당라인에 에러있다고 나옴!!
+                window.clearTimeout(wid);//중지시킴 
         }
 
-        function moveGoogle(){
-            location.href='https://www.google.co.kr/';
-        }
+        //setTimeout()으로 실행하고 clearTimeout()으로 해제
+        //setTimeout() 1번만 실행, setInterval() 주기적으로 계속 실행
 
-        function goGoogle(){
-            let obj2=document.querySelector('#gg');
-            wid2=window.setTimeout(moveGoogle,3000);
-        }
-
-   
         function move(){
-            if(obj!=null){
-                 obj.moveTo(300,400); 
-            }
+            let obj=document.querySelector('#circle');
+            obj.style.display='block';
+            //setTimeout(moveCircle,4000);
+            setTimeout(function(){//익명함수
+                obj.style.position='absolute';
+                obj.style.left='300px'
+            },4000)
+
         }
+        /*function moveCircle(){
+            console.log('moveCircle호출됨--');//F12 콘솔창에 나오는 문구
+            let obj=document.querySelector('#circle');
+            obj.style.left='300px'; //x좌표 이동
+        }*/
+
+  
+        
 
     </script>
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex21BOM_form.html</title>
+    <script>
+        function send(){
+            //alert('a') //반응하는지 체크. 안해도됨
+            let val=document.getElementById('userid').value;
+            if(!val){
+                alert('아이디를 입력하세요');
+                document.getElementById('userid').focus();//입력 포커스주기
+                return false;//submit되지 않음
+            }
+            return true;//submit됨
+        }
+
+    </script>
+</head>
+<body>
+    <form id="idfrm" action="idCheck.jsp" onsubmit="return send()">
+        <!-- onsubmit핸들러의 경우 send()함수의 반환값에 따라
+        submit여부를 결정한다. true를 반환하면 서버에 전송하고
+        false반환하면 전송하지 않는다. -->
+        <h1>아이디 중복체크</h1>
+        아이디: <input type="text" name="id" id="userid"><p></p>
+        <button type="submit" onclick="check()">Submit</button>
+    <!-- 앞서 check()함수만들고 return해줌 그래도 submit이 작동해서
+    type을 일반버튼으로 만들어서 했었음
+        
+    2번째 방법을 적용해보겠다. type="submit"을 쓰되 onsubmit="send()" 
+    form이 전송될때 send()함수가 작동-->
+    </form>
+
+    
+</body>
+</html>

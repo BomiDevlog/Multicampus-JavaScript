@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex15BOM_window.html</title>
+    <style>
+        div#circle{
+            background-color: blueviolet;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* 사각형의 모서리를 둥글게 만들어 => 원 형태 */
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>window객체의 setTimeout()/clearTimeout()활용</h2>
+    <h2>window객체의 setInterval()/clearInterval()활용</h2>
+    <button onclick="show()">Click Me</button> 
+    <!-- 클릭하면 디스플레이 none->block 해서 눈에 보이게 나옴-->
+    <button onclick="go()">Go Go</button> 
+    <button onclick="stop()">Stop</button>
+    <button onclick="goGoogle()">3초 뒤에 구글로 이동</button>
+    <button onclick="move()">Move</button>
+    <!-- 
+       [1] goGoogle()함수에서 location 이용해서 3초 뒤에 구글로 이동
+       [2] move() 함수에서는 circle 객체를 참조해서 circle을 보여준 뒤에 
+       x좌표를 300px인 위치로 이동시키되, 4초 뒤에 이동시키기
+     -->
+    <hr>
+
+
+    <div id="circle">
+    </div>
+
+    <script>
+        function show(){
+            //id가 circle인 요소를 찾아서 해당 요소의 style을 이용해서
+            //display속성값 변경하세요
+            let obj=document.getElementById('circle');
+            obj.style.display='block';
+            // obj.style.background-color='yellow'; [x]
+            // 자바스크립트에서는 하이픈('-')이 빼기(-) 연산자로 사용되므로
+            // 하이픈을 빼고 대신 하이픈 뒤에 오는 첫글자를 대문자로 기술한다. (카멜표기법:마치 낙타등처럼)
+            obj.style.backgroundColor='tomato';
+        }
+
+        function go(){
+        // 쿼리셀렉터는 아이디에# 클래스에.붙음
+            let obj=document.querySelector('#circle');
+            //alert(obj);
+            //반환하는 값을 나타내는 변수 wid=window.setTimeout(함수명,밀리초) : 밀리초 이후에 함수를 1번만 호출 *밀리초=1/1000초
+            //window.clearTimeout(wid) : setTimeout() r걸은 것을 중지시킴
+            wid=window.setTimeout(show,3000); // 3초뒤에 show 호출 //var안붙이면 전역변수라서 다른 함수에서도 사용가능
+            //드래그하고 마우스를 가져다대면 설명이 나온다
+        }
+        
+        function stop(){
+            if(wid!=null)
+                window.clearTimeout(wid);//중지시킴 
+        }
+
+        //setTimeout()으로 실행하고 clearTimeout()으로 해제
+        //setTimeout() 1번만 실행, setInterval() 주기적으로 계속 실행
+
+        function move(){
+            let obj=document.querySelector('#circle');
+            obj.style.display='block';
+            setTimeout(moveCircle,4000);
+
+        }
+        function moveCircle(){
+            console.log('moveCircle호출됨--');//F12 콘솔창에 나오는 문구
+            let obj=document.querySelector('#circle');
+            obj.style.left='300px'; //x좌표 이동
+        }
+
+
+        /*
+        [내가 푼 방식]
+
+        go googole 버튼에  id="gg" 설정해서
+
+        function moveGoogle(){
+            location.href='https://www.google.co.kr/';
+        }
+
+        function goGoogle(){
+            let obj2=document.querySelector('#gg');
+            wid2=window.setTimeout(moveGoogle,3000);
+        }*/
+
+   
+        
+
+    </script>
+
+</body>
+</html>

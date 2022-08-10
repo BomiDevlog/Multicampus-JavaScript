@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex20BOM_form</title>
+    <script>
+        function check(){
+            /*유효성 체크(유효한 값이 들어왔는지 검사)
+                "form이름.input이름.value"      
+                
+                action()
+                method()*/
+            let val=frm.name.value; // 이름을 val에 담아줌
+            //alert(val); // 이름칸에 입력한 이름이 대화상자에 뜬다(inputname)
+           if(val==""){ //공백일 경우
+            alert('이름을 입력해야해요');
+            frm.name.focus();//입력 포커스 주기
+            return;
+            // submit버튼일 경우 return을 해도 서버에 전송한다.
+            /*유효하지않은 값이 서버에 전송되면 안되므로 (2가지 해결법)
+            =>[1] button의 type을 일반 버튼으로 설정한 뒤, form객체를 통해 submit()한다.
+            =>[2] 
+             */
+           }
+           //이름의 길이가 5자를 초과할 경우 '이름은 5자 이내여야 해요'
+           //문자열 length 속성 사용하기
+           
+           if(val.length>5){
+            alert('이름은 5자 이내여야 해요');
+            frm.name.select();//입력한 글자를 드래그해준다 -> 지우기 쉬움
+            //개선사항=>입력칸을 완전히 지워주는 코드로 만들어보기!
+            return;
+           }
+        //    alert(frm.action); // getter : 값을 꺼내서 보여줌
+        //    alert(frm.method); // getter
+           frm.action='idFind.jsp'; //setter : 값입력 => 내용을 동적으로 바꾸어야할때 쓴다
+           frm.method='get';//setter
+           frm.submit();// [1]-2
+        }//check()-----
+
+        function check2(){
+            //alert('a');//함수가 잘 연동되는지 확인용으로 잠시 본 것
+
+            /*form에 name을 주지 않았을 경우 계층구조로 접근 ( 이때 배열이니 forms로 기술)
+            => window.document.forms[0]  식으로 접근한다 
+            */
+           let f=window.document.forms[1];
+           if(f.name.value==""){//공백일 경우. (!f.name.value)로 표현할 수도 있다
+            alert('이름을 입력해야 해요'); 
+            f.name.focus();
+            return;
+           }
+           if(!f.id.value){
+            alert('아이디를 입력해야 해요');
+            f.id.focus();
+            return;
+           }
+        }//check2()
+    </script>
+</head>
+<body>
+    <h1>BOM - form객체</h1>
+    <form name="frm" id="frm" action="findId" method="post"><!-- name,id는 대게 동일 -->
+        <h2>아이디 찾기</h2>
+        이름: <input type="text" name="name" id="name">
+        <button type="button" onclick="check()">Submit</button> <!-- [1]-1 -->
+        <!--<button onclick="check()">Submit</button>  
+            버튼 기능을 설정하지않으면 버튼type의 디폴트가 submit기능 
+        => 공백일 때도 submit되니까 
+            유효성검사해줄 함수만들어주고 alert로 입력하세요 알람창 만들기.
+        -->
+        <!-- form객체는 유효성 검사할 때 주로 쓴다 -->
+    </form>
+    <hr color="red">
+    <form action="findPwd.jsp"> <!-- name, id가 지정안되어있는 form의 경우 -->
+        <!-- method 지정안되어있으면 기본값이 get -->
+        <h1>비밀번호 찾기</h1>
+        이름: <input type="text" name="name"><p></p>
+        아이디: <input type="text" name="id"><p></p>
+        <button type="button" onclick="check2()">Submit</button> 
+        <!-- 제출인가? 왜 이동안하지? -->
+    </form>
+
+    <!-- 기술된 form의 순서대로 위에서부터 0,1,2,3,... index번호가 붙는다.
+    frm form이 forms[0], 아래의 이름없는 form이 forms[1] -->
+
+</body>
+</html>

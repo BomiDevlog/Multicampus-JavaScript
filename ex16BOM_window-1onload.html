@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex16BOM_window.html</title>
+    <style>
+        #circle{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: olivedrab;
+            position: absolute;
+            top:200px; /*위에서부터의 거리. 100px하니 높아서 200px하니 더 아래로 배치*/
+        }
+    </style>
+    <script>
+        let wid=null;//setInterval이 반환하는 변수를 전역변수로 선언
+        let obj=null;
+
+        /*window.onload 속성
+        :window객체가 로드 된 후에 익명함수를 실행하라는 의미*/
+        window.onload=function(){
+            obj= document.getElementById('circle');// #안붙여도 아이디 인식됨
+            //alert(obj); // null값 나옴
+            /*TOPDOWN방식이라서 인터프리터가 파싱하는 시점에서 circle이 없기때문에 null값이 나온것.
+            => 2가지 해결방법
+            1)스크립트를 아래로 내리면 [object HTMLDivElement]메시지나옴.
+            2)window.onload 이용                                            */
+        }
+        
+        function show(){
+            if(wid==null){
+                wid=window.setInterval(function(){//익명함수를 활용
+                alert('꽝!!');
+                },3000) // clearInterval쓰기전엔 3초마다 메시지가 계속 나와서 무한루프
+            }
+            //click me 버튼을 여러번 누르니 프로그램이 여러번 실행이 되어 
+            // stop버튼 눌러도 메시지가 계속 작동 => if로 조건걸어서 1번만 작동하게함
+        }
+
+        function stop(){
+             if(wid!=null)
+                window.clearInterval(wid)
+        }
+
+        /*내가 풀던 부분 =>사라졌다가 이동한 위치에 딱 나타남
+        function move(){ 
+            obj.style.display='block';
+            setTimeout(()=>{
+                 obj.style.position='absolute';
+                 obj.style.left='400px'
+             },3000)
+            
+        }*/
+
+        let x=50; //전역변수로 위치하니 멈춘 자리에서 그대로 move
+        function move(){
+            //let x=50; 지역변수로 위치하니 다시 제자리로 돌아와서 move
+            if(wid==null){
+                wid=window.setInterval(function(){
+                    if(x>700){
+                        x=50;
+                    }// 일정거리만큼 이동하면 다시 제자리로 돌아와서 반복하도록 조건문 설정
+                    x+=10;
+                    obj.style.position='absolute';
+                    obj.style.left=x+'px';
+                },20)
+            }
+        }    
+
+        function moveStop(){
+            if(wid!=null) {
+                clearTimeout(wid); // move중지 => 굴러가던 위치에 그대로 멈춤
+                wid=null; // move 버튼이 또 작동할 수 있도록 초기화 조건
+            }
+        }
+
+
+       
+        
+    </script>
+</head>
+<body>
+    <h1>window객체의 setInterval()/clearInterval() 활용</h1>
+    <!-- window.setInterval(함수명,밀리초) : 밀리초 단위로 함수를 주기적으로 계속 수행한다. -->
+    <!-- [실습] Move버튼을 누르면 circle의 x좌표를 이동시켜서 공이 굴러가게 하세요
+                MoveStop버튼 누르면 공굴리기 중지시키기-->
+
+    <button onclick="show()">Click Me</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="move()">Move</button>
+    <button onclick="moveStop()">Move Stop</button>
+    <button onclick="window.alert('반갑습니다')">alert</button>
+    <button onclick="let str=prompt('메시지 입력'); alert(str);">prompt</button>
+    <button onclick="ask()">confirm</button>
+    <!-- 
+        window 함수 : dialogue 창을 띄우는 함수
+        [1] alert()   : 알람창
+        [2] prompt()  : 입력창
+        [3] confirm() : 확인창
+     -->
+    <hr>
+    <div id="circle"></div>
+
+    <script>
+        function ask(){ 
+            let yn=confirm('네이버로 이동할까요?');
+            if(yn){//확인 버튼을 눌렀다면
+                location.href='http://www.naver.com';
+            }
+        }// confirm 응용: 게시판에 글 삭제할때. 삭제하시겠습니까? 예(삭제과정)
+    </script>
+<!-- https://www.w3schools.com/ 예제많이 보기 -->
+<!-- document.getElementById(id)	Find an element by element id
+    : id가 유니크라서 단수형
+document.getElementsByTagName(name)	Find elements by tag name 
+복수형 s
+
+Changing HTML Elements 속성값바꿀때
+element.attribute = new value
+element.setAttribute(attribute, value)
+-->
+</body>
+</html>

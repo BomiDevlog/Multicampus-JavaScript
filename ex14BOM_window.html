@@ -36,8 +36,9 @@
             //폭, 높이, left(x좌표), top(y좌표), 그 외 속성 //숫자로 적으면 px단위
             //menubar=yes|no, toolbar=yes|no, scrollbars=yes|no 이것들 잘 안먹는다고함
             //win=>새로 띄운 윈도우창을 참조한다
-        }// openWin()
+        }// 
 
+        //openWin()팝업창 열고 closeWin() 팝업창 닫음
 
         //var말고 const 자료유형도 많이 쓴다.
         var closeWin= function(){
@@ -45,7 +46,7 @@
             if(win!=null){ //새로운 팝업창이 떴다면. (새로운 창이 뜨지않았는데 창닫기하면 안되니까)
                 win.close();
             }//띄우지않았을때는 아무 반응없음
-        }// closeWin()
+        }// 
 
         const changeLoc= function(){
             //window.moveTo(x,y) : 윈도우의 창을 이동시킨다. 단, 같은 도메인일 경우에만 동작.

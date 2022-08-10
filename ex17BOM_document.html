@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex17BOM_document</title>
+    <script>
+        /*document 객체의 속성과 함수
+          [1] title 속성: 현재 문서의 제목을 출력하거나 설정
+          [2] lastModified속성: 현재 html문서가 마지막에 저장된 시간
+          [3] write()함수
+          [4] getElementById('아이디명'), querySelector(selector),
+              getElementsByTagName('태그명'), getElementsByClassName('클래스명') // --배열을 이용함
+          [5] fgColor속성: 글자색
+          [6] bgColor속성: 배경색
+        */
+        document.write("<hr color='red'>");
+       //alert(document.title); // getter 값을 꺼내는 것
+        document.title="문서 제목을 변경해요"; //setter 값을 주는 것
+        document.write(`<h2>현재 문서가 마지막 저장된 시간:${document.lastModified}</h2>`)
+       //[간단 실습]id가 btn인 버튼 객체를 얻어와서 alert()로 띄워보기
+        window.onload=()=>{ //script가 해석되도록 onload를 화살표함수로 할당.
+            let obj=document.getElementById('btn'); // id가 btn인 버튼 객체를 변수 선언
+            //alert('obj='+obj);
+            obj.onclick=function(){
+                //alert('click');
+                //document의 배경색,글자색을 변경하세요
+                document.bgColor='maroon';
+                document.fgColor='white';
+
+                //버튼의 배경색을 navy, 글자색을 yellow로 변경하세요
+                this.style.backgroundColor='navy';
+                this.style.color='yellow';
+                // obj.style.backgroundColor='navy';
+                // obj.style.color='yellow';
+                // obj로 접근할 수 있고 this로 접근할 수도 있다
+            }
+       }
+      
+
+    </script>
+</head>
+<body>
+    <h1>BOM - window.document 객체</h1>
+    <button id="btn">document의 색상 변경</button>
+</body>
+</html>

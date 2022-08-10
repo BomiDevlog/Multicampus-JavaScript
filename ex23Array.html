@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex23Array.html</title>
+</head>
+<body>
+    <h1>Array메소드</h1>
+    <h3>push(): 배열에 새로운 요소를 마지막에 추가한다.</h3>
+    <h3>concat(): 배열의 요소를 모두 합쳐 배열을 만들어 리턴한다.</h3>
+    <h3>join(): 배열 안의 모든 요소를 문자열로 만들어 반환한다.</h3>
+    <h3>pop(): 배열의 마지막 요소를 제거하고 반환한다.</h3>
+    <h3>shift(): 배열의 첫번째 요소를 제거하고 반환한다.</h3>
+    <h3>sort() : 오름차순으로 정렬하여 반환한다.</h3>
+    <!-- push는 맨 끝에 추가. pop은 맨 끝을 제거.
+        concat합쳐 배열 join 문자열
+        shift 맨첨 제거 sort 오름차순 -->
+    <hr>
+
+    <script>
+        const a=10;//상수. 값변경x. const는 자바의 final과 유사.
+        //alert(a)
+        //a='Hi';//[x] 이후의 코드 실행안되며, F12에 에러표시.
+        const fruits=["Banana","Apple","Orange","Mango"];
+
+        //[1] Kiwi를 배열 마지막에 추가한 뒤에 forEach()함수를 이용해 모두 출력하기
+        fruits.push("Kiwi");
+        fruits.forEach(function(value){
+            document.write(`<h4 style="color:green">${value}</h4>`)
+        })
+
+        fruits[5]="Melon";
+        fruits.forEach(function(value, i){
+            document.write(`<h3 style="color:lime;">${value}=> ${i}</h3>`)
+        })
+
+        let str=fruits.join("#");
+        document.write(`<h3>${str}</h3>`);
+        //Banana#Apple#Orange#Mango#Kiwi#Melon
+        //join() 으로하니 Banana,Apple,Orange,Mango,Kiwi,Melon
+
+        //첫번째 요소를 삭제 후 배열을 출력하세요
+        let obj=fruits.shift();
+        document.write(`
+            <h3>삭제한 요소:${obj}</h3>
+            <h3>${fruits}</h3>
+        `)
+        //첫번째에 추가: unshift()
+        //맨앞에 Lemon 추가하세요
+        fruits.unshift('Lemon');
+        document.write(`<h3>${fruits}</h3>`);
+
+        //맨 마지막 요소를 삭제하세요
+        fruits.pop();
+        document.write(`<h3>${fruits}</h3>`);
+
+        //중간요소를 삭제하고 싶을 경우
+        //delete 연산자를 이용한 삭제
+        //splice(시작인덱스, [삭제할개수],[새로추가할요소])를 이용한 삭제
+        delete fruits[2]
+        document.write(`<h3>${fruits}</h3>`);
+        //Lemon,Apple,,Mango,Kiwi // delete=>해당 배열을 삭제시켰는데 ,,로 나옴
+
+        fruits.splice(1,1)
+        document.write(`<h3>${fruits}</h3>`);
+        //Lemon,,Mango,Kiwi //,,나옴
+
+        fruits.splice(1,1,'Peach')
+        document.write(`<h3>${fruits}</h3>`);
+        // [1] 자리는 이미 비었고 그 삭제 자리에 그대로 들어가서 끼어들어간 형태.
+
+        fruits.splice(2,1,'WaterMelon')
+        document.write(`<h3>${fruits}</h3>`);
+        //Lemon,,WaterMelon,Kiwi //망고를 삭제시키고 자리를 대체
+        // 1개만 삭제시켜서 해당 배열은 빈칸으로 남아있는 듯.
+
+        let drinks=["juice","Coke","Coffe"];
+        //fruits, drinks를 합쳐서 하나의 배열로 만든 후 출력하세요
+        let array = fruits.concat(drinks);//배열들을 합쳐서 새로운 배열을 만듬
+        document.write(`<h3>${array}</h3>`);
+        //Lemon,Peach,WaterMelon,Kiwi,juice,Coke,Coffe // fruits가 먼저 나열되고 drinks가 나열
+        document.write(`<h3>${fruits}</h3>`);// 원본은 그대로 유지
+    </script>
+    <h3>slice(): 배열의 일부를 조각내어 새로운 배열로 반환한다</h3>
+    <h3>splice(): 요소에 지정한 부분을 삭제하고 삭제한 요소를 반환한다.</h3>
+    <hr>
+    <script>
+        //push(),splice() 반드시 기억! 중요!
+        //array의 인덱스 3부터 6의 직전까지 조각내기(array인덱스  3부터 5까지 삭제할 것 )
+        //splice(start,end+1)
+        let array2=array.slice(3,6)
+        document.write(`<h3>${array2}</h3>`) //Kiwi,juice,Coke 깔끔하게 나옴! ,, 아님
+
+    </script>
+
+</body>
+</html>

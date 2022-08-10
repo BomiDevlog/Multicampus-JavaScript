@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex24실습.html</title>
+    <style>
+        body{
+            background-color: #000;
+            color: white;
+        }
+        div#movies{
+            width:90%;
+            margin: 50px auto;
+            text-align: center;
+            /* border:thick yellow solid; 형태 확인용 */
+        }
+        arr{
+            width: 200px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- div#btns엔터 -->
+        <div id="btns">
+            <button id="btn1" onclick="show()">현재 상영작</button>
+            <!-- show -->
+            <button id="btnPlay">Play</button>
+            <!-- move -->
+            <button id="btnStop">Stop</button>
+            <!-- stop -->
+        </div>
+        <div id="movies">
+
+        </div>
+    </div>
+    <script>
+        let wid=null;
+        //[1] 현재 상영중인 영화 이미지들 5개를 배열에 저장하세요.
+        var arr=Array(5);
+        arr[0]=`img src="./images/m1.png" width="200px" `;
+        arr[1]=`img src="./images/m2.png" width="200px" `;
+        arr[2]=`img src="./images/m3.png" width="200px" `;
+        arr[3]=`img src="./images/m4.png" width="200px" `;
+        arr[4]=`img src="./images/m5.png" width="200px" `;
+
+        //[2] 현재 상영작 버튼을 누르면 배열에 저장한 영화 이미지를
+        //id가 movies인 곳에 나타나도록 처리하세요
+        //innerHTML 속성 이용해서 img태그를 id가 movies인 곳에 삽입하기
+
+        function show(){
+            let obj=document.querySelector(arr);
+            obj.style.display='block';
+        }
+       
+        let x=50; //전역변수로 위치하니 멈춘 자리에서 그대로 move
+        function move(){
+            if(wid==null){
+                wid=window.setInterval(function(){
+                    if(x>1000){
+                        x=50;//방향바꾸라는 내용.
+                    }
+                    x+=10;
+                    obj.style.position='absolute';
+                    obj.style.left=x+'px';
+                },20)
+            }
+        }    
+
+        function moveStop(){
+            if(wid!=null) {
+                clearTimeout(wid); // move중지 => 굴러가던 위치에 그대로 멈춤
+                wid=null; // move 버튼이 또 작동할 수 있도록 초기화 조건
+            }
+        }
+
+
+        //[3] Play 버튼을 누르면 영화 이미지들이 오른쪽으로 이동하도록 하세요
+        //    오른쪽 끝으로 다 이동하면 다시 왼쪽으로 이동시키고,
+        //    왼쪽 끝에 이동하면 다시 오른쪽으로 이동시키세요
+
+
+    </script>
+    
+</body>
+</html>
