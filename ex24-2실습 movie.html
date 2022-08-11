@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex24실습 movie.html</title>
+    <style>
+        body{
+            background-color: #000;
+            color: white;
+        }
+        div#movies{
+            width:90%;
+            margin: 50px auto;
+            text-align: center;
+            /* border:thick yellow solid; 형태 확인용 */
+        }
+        div#btns{
+            width:50%;
+            margin: auto; /*테두리가 중앙에 왔지만 버튼이 왼쪽정렬디폴트라서 여전히 치우쳐보임*/
+            /*border: 1px solid white;*//*확인용으로 잠시 설정했음*/
+            text-align: center;  /* 버튼이 가운데로 위치 */
+            padding:5px;
+        }
+        div#btns button{
+            width: 120px;
+            height: 30px;
+        }
+        div#movies img{
+            width: 150px;
+            height: 212px;
+            border: 1px solid white;
+        }
+        /* 기준으로 할 이미지를 고르고
+        F12에서 이미지의 px의 크기를 확인해서 이미지가 찌그러지지않도록한다 
+        -> 이미지 크기설정해서 모든 이미지의 크기를 균일하게 만듬*/
+        
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- 왔다갔다 움직이려면 부모를 relative로 설정해야하거나,
+        body를 기준으로 하면 된다 -->
+        <!-- div#btns엔터 -->
+        <div id="btns">
+            <button id="btn1">현재 상영작</button>
+            <button id="btnPlay">Play</button>
+            <button id="btnStop">Stop</button>
+
+        </div>
+        <div id="movies">
+            
+        </div>
+    </div>
+    <script>
+        /*[1] 현재 상영중인 영화 이미지들 5개를 배열에 저장하세요.  */
+        let movies=['m1.jpg','m2.jpg','m3.jpg','m4.jpg','m5.jpg']
+        /*다른 방식:  let movies=[]
+        빈배열만들고 push()로 계속 값을 추가할 수 있다 */
+        let btn1=document.getElementById('btn1');
+        let divMovies=document.querySelector('#movies');
+        let btnPlay=document.querySelector('#btnPlay');
+        let btnStop=document.querySelector('btnStop');
+        let wid=null;//setInterval이 반환하는 변수
+        let x=20; //x좌표를 기본값 20px로 지정-> 해당좌표를 ++시킨걸 left좌표로 설정
+        let i=1;//x좌표값의 증가치
+
+        /*[2] 현재 상영작 버튼을 누르면 배열에 저장한 영화 이미지를
+          id가 movies인 곳에 나타나도록 처리하세요
+          innerHTML 속성 이용해서 img태그를 id가 movies인 곳에 삽입하기*/
+        btn1.onclick=function(){
+            //let str=`<img src="images/m1.jpg">`;
+            //divMovies.innerText=str; //글자가 들어온다
+            //divMovies.innerHTML=str;//이미지 1개 들어옴
+
+            let str=``;//빈문자로 백팃//자바6이후라서 최신 브라우저가 아니면 백팃지원안됨
+            movies.forEach(function(movie){
+                console.log(movie);//무비가 무엇으로 들어오는지 확인하려면 콘솔에 찍어보면 된다
+                str+=`<img src="images/${movie}">`; //+=로 누적해야한다
+            })
+            divMovies.innerHTML=str;//이미지가 들어온다
+        }
+
+        /*[3] Play 버튼을 누르면 영화 이미지들이 오른쪽으로 이동하도록 하세요
+          오른쪽 끝으로 다 이동하면 다시 왼쪽으로 이동시키고,
+          왼쪽 끝에 이동하면 다시 오른쪽으로 이동시키세요*/
+        
+        btnPlay.onclick=function(){
+        //divMovies의 x좌표 변경해서 이동시키기: setInterval이용
+            divMovies.style.position='absolute';
+            if(wid==null){
+                wid=setInterval(function(){
+                    alert(document.body.clientWidth);//사용자에게 보여주는 폭
+                    if(x>300){
+                        i=-1;//왼쪽이동
+                    }
+                    if(x<20){
+                        i=1;//오른쪽이동
+                    }
+                    divMovies.style.left=x+"px";
+                    x+=i;//좌표는 i만큼 이동
+                }, 20);
+            }
+        } //지금 안움직임.. 강사님코드 보기
+
+        btnPlay.onclick=function(){
+            //clearInterval로 중지시키기
+            if(wid!=null){
+                clearInterval(wid);
+                wid=null;
+            }
+        }
+
+        
+        
+
+
+    </script>
+    
+</body>
+</html>

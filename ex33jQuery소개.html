@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex33jQuery소개</title>
+    <!-- jQUery라이브러리를 CDN방식으로 참조 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!--구분선 ---------------------------------------- -->
+    <script>
+        window.onload=function(){//onload: window가 준비되면 이 함수를 그때 실행해라
+            document.getElementById('a').innerHTML=`<h1>JavaScript</h1>`
+        //div a인 블럭에 자바스크립트 글이 들어간 형태
+        }
+
+        //jQuery방식[1]
+        //window.jQuery = window.$ = jQuery객체 = $로 축약해서 사용
+        //window최상위객체 아래 jQuery객체를 참조할 때
+        $(document).ready(function(){//도큐먼트가 준비되면 실행해. 기능이 비슷한데 온로드보다 좀 더 빠름
+            //id가 b인 요소를 선택해서 jQuery를 넣어보자
+            $('#b').html('<h1>jQuery</h1>') // 제이쿼리를 사용해서 위의 온로드보다 더 간편하게 실행할 수 있다
+                    .css('color','tomato')//계속 체인을 걸 수 있기에 세미콜론 넣지말기
+                    .css('border','2px dashed skyblue')
+
+        })
+
+        //jQuery방식[2]:  $(document).ready 축약형
+        $(function(){
+            //id가 c인 요소 찾아서 Bye Bye를 넣고 css 알아서 스타일 줘보기
+            $('#c').html(`<h2>Bye Bye~~</h2>`)
+                    //.css('color','green')//이렇게 계속 연결해도 되지만 좀더 간단한 방법으로 해보겠다
+                    .css({//json방식으로 여러 내용 넣음
+                        color : 'blue',
+                        fontSize: '2em',
+                        backgroundColor:'bisque',
+                        border: 'thick dotted orange'
+                    })
+
+
+        })
+    </script>
+</head>
+<body>
+    <h1>jQuery 시작하기</h1>
+   <p>jQuery: 자바스크립트 라이브러리</p> 
+   <!-- 자바스크립트를 더 쉽게 사용할수 있도록 도와주는 라이브러리 -->
+   <p>1. 다운로드: http://jquery.com<br>
+               http://jqueryui.com[확장 기능 제공]<br>
+      2. CDN방식: Content Delivery Network           
+      <!-- 다운받지않고 사용할 수 있음. Google CDN에 3.x snippet의 링크를 복붙함: -->
+   <!-- 컨트롤키 누르고 클릭하면 링크로 이동 -->
+   </p>
+    <div id="a"></div>
+    <div id="b"></div>
+    <div id="c"></div>
+
+    <hr>
+    <button class="btn">ajax 요청보내기</button>
+    <script>
+        /*
+        $.ajax({
+            type:"요청방식",     //get|post
+            url:"요청url",
+            dataType:'응답유형',
+            success: function(res){...},  //응답데이터가 매개변수로 온다
+            error:function(err){...}
+        })
+        */
+        $(function(){
+            $('.btn').click(function(){
+                //alert('hi')//이벤트가 잘 작동하는 지 확인용
+                $.ajax({
+                    type: 'get',
+                    url:'ex32Data.json',
+                    dataType:'json',
+                    success:function(res){ //
+                        //성공적으로 응답이 왔을 때
+                        //alert(res)//[object Object]
+                        alert(res.title)//비상선언
+                        $('#a').html(`
+                        <h1>${res.title}</h1>
+                        <h2>${res.actor}</h2>
+                        <img src="images/${res.poster}">
+                        `)
+                    },
+                    error:function(err){ // 에러났을 때
+                        alert('error발생: '+err.status)
+                    }
+                })
+            })
+        })
+      
+    </script>
+
+    
+</body>
+</html>

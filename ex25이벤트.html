@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex25이벤트.html</title>
+    <script>
+        /*event처리 방법
+        [1] html태그 내에서 이벤트 핸들러를 기술하는 방법 - onclick, onmouseover 등
+        [2] literal방식으로 이벤트 핸들러를 기술
+        [3] addEventListener(이벤트종류, 핸들러함수)
+        */
+        window.onload=init;//onload할 함수명을 지정해도 된다// onload하면 hoisting이 지정된다.
+
+        function init(){
+            //alert('init');//확인용
+            /*class가 e1인 요소 중 2번째 요소를 참조해봅시다.
+            document의 getElementsByClassName('클래스이름') : => Collection유형
+                       querySelectorAll('.클래스명')    */
+            let obj2=document.getElementsByClassName('e1');
+              //콜렉션 =>자바의 어레이리스트처럼반환 배열같은 자료구조
+              // 클래스가하나뿐이어도 인덱스0으로 접근
+            obj2[1].onclick=function(){//[2] literal방식
+                //alert('hi');//확인용
+                this.style.backgroundColor='purple'; //this는 onclick의 주체인 obj2[1]
+                this.style.color='white';
+            }
+            // class가 e1인 요소 중 3번째 요소를 더블클릭하면 글자색을 red로 변경
+            //obj2[2].addEventListener('click',function(){//on을 빼고 click이라고 쓴다
+             obj2[2].addEventListener('dblclick',function(){ //더블클릭하면
+                this.style.color='red';
+            })//[3] addEventListener(이벤트종류, 핸들러함수)
+            
+
+            }
+    </script>
+
+</head>
+<body>
+    <!-- [1] html태그 내에서 이벤트 핸들러를 기술하는 방법  -->
+    <h1 class="e1" onmouseover="this.style.border='2px blue dashed'"
+    onmouseout="this.style.border=''">이벤트 처리1</h1>
+    <!-- this는 h1을 가리킨다 
+    onmouseover만하면 테두리 생기고, 마우스르 out해도 그대로 테두리 있음
+    onmouseout="this.style.border=''" 빈문자를 주면 원래대로 초기화된다.-->
+    <h1 class="e1">이벤트 처리2</h1>
+    <h1 class="e1">이벤트 처리3</h1>
+    <!-- 클래스의 인덱스는 위에서부터 0,1,2로 붙는다 -->
+    
+</body>
+</html>

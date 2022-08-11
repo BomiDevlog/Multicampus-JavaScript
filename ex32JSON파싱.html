@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex32JSON파싱</title>
+</head>
+<body>
+    <h1>JSON.stringify(), JSON.parse()</h1>
+    <h2>stringify(): JSON객체를 문자열로 변환하는 함수</h2>
+    <h2>parse(): 문자열을 JSON객체로 변환하는 함수</h2>
+    <div id="result"></div>
+    <hr>
+    <button>JSON객체 생성하기</button>
+    <button>문자열을 JSON 객체로 만들기</button>
+    <button>Ajax요청 보내기 json객체 받아오기</button>
+
+    <script>
+        let btAll=document.querySelectorAll('button');
+        let result=document.querySelector('#result');
+        btAll[0].onclick=function(){//위에서부터 첫번째 버튼이 index0번
+            let movie={ //파일로 전환할때는 속성명에도 ""나''로 따옴표를 꼭 붙여야함
+                "title":"한산",
+                "actor":"박해일",
+                "poster":"m2.jpg"
+            }
+            console.log('movie의 typeof: ', typeof movie);// object
+            result.innerHTML=`<h1>제목: ${movie.title}, 배우:  ${movie['actor']} </h1>`;
+           // 배우:  ${movie['actor']}  장고할때는 이런식으로 접근할 예정
+        }//--------------------------------------------
+
+        btAll[1].onclick=function(){
+            let str='{"title":"헌트","actor":"이정재","poster":"m1.jpg"}';//''홑따옴표로 감싸서 문자열로 설정
+            //alert(typeof str);//string
+            //문자열을 json객체로 변환하는 함수: JSON.parse(문자열)
+            //json객체를 문자열로 만들어주는 함수 : JSSON.stringify(객체)
+            let jsObj=JSON.parse(str);//Json에 static메소드같은 효과
+            console.log('jsObj의 typeof: ', typeof jsObj);//object
+            //result.innerHTML=`<h2>${str.title}, ${['poster']}</h2>`;//JSON이라면 이렇게 코딩하지만 문자열이라서 undefined됨
+            result.innerHTML=`<h2>${jsObj.title}, ${jsObj['poster']}</h2>`;
+        }
+
+        //jQuery로 더 쉽게 받아올수 있지만, 우선 자바스크립트로 풀어보겠다
+       
+        //Ajax요청을 보낼 수 있는 객체
+        let xhr=new XMLHttpRequest();
+           
+        btAll[2].onclick=function(){
+            xhr.open('GET','ex32Data.json')//서버에 요청을 준비하는 함수 (method, url)
+            //ex32Data2.json 했더니 2~4/404 알람창
+            //404: 없는 파일 요청해서 수신이 안되서.
+            
+            xhr.onreadystatechange=function(){
+                //서버에서 응답이 올 때 상태변화에 따라 지정된 콜백함수를 호출한다.
+                //alert(xhr.response.status)//undefined나옴
+                //alert(xhr.readyState)//4값일 때 응답이 완료되었음을 의미
+                //alert(xhr.status)//200 : 성공적인 응답이 올 경우 200값을 반환
+                alert(xhr.readyState+"/"+xhr.status) //2~4/200 연이어 메시지. 성공적응답 완료
+                if(xhr.readyState==4 && xhr.status==200){
+                    //응답 데이터 받기
+                    let txt=xhr.responseText;
+                    //alert(txt);
+                    //alert(typeof txt);//string
+
+                    //[실습]id가 result인 곳에 제목, 배우 문자열로 출력하고
+                    //     poster는 이미지로 출력하세요
+                    let obj=JSON.parse(txt); //string을 json으로 변환
+                    let str=`
+                        <div>
+                            <img src="images/${obj.poster}">
+                            <h4>${obj.title}</h4>
+                            <h5>주연배우: ${obj.actor}</h5>
+                        </div>
+                    `
+                        result.innerHTML=str;
+                    /*풀던것
+                    let txtObj=JSON.parse(txt);
+                    result.innerHTML=`<h2>제목 : ${txtObj.title}, 
+                        배우: ${txtObj.actor} 
+                        <img src=${txtObj.poster}> </h2>`
+
+                    */
+                }
+            }   
+
+            xhr.send(null); // 요청을 서버에 보내는 함수
+            /*  get방식 요청일 경우 send()에 null을 넘긴다
+                post방식일 경우 요청파라미터 데이터를 send()함수에 전달한다
+            */
+           //F12눌러서 네트워크에서 확인.
+
+        }
+        
+        /* 나무위키 Ajax 검색내용정리
+        Ajax 는 동적 페이지 렌더링을 하기 때문에 자바스크립트를 해석하지 못하는
+        검색 엔진에서는 내용이 검색되지 않는다는 문제가 있다.
+        웹 브라우저에서 지원하는 프로그래밍 가능한 '언어'는 자바스크립트 
+        단 하나뿐이라서 JavaScript를 반드시 써야 한다
+        일단 구글은 Ajax 기반의 웹 사이트도 읽을 수 있다.
+        */
+    </script>
+
+</body>
+</html>

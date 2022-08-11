@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex31object</title>
+</head>
+<body>
+    <script>
+        /* 객체 생성 방법
+           1. Object객체를 이용해서 생성하는 방법
+           2. 생성자함수를 이용하는 방법
+           3. literal 표기를 이용하는 방법 ==> JSON     // 중요! 파이썬에서도 쓴다
+                   //JSON이 다른 프로그램이나 다른 컴퓨터에서도  호환이 잘되서 유용함
+        */
+       //객체dog 속성으로 name, age(지역변수) 함수
+        let dog=new Object(); //[1] Object객체를 이용해서 객체 생성
+        dog.name='짱구';  //객체명.이름으로 추가
+        dog.age=1;
+        dog.bark=function(){
+            let s=`${this.name} 강아지가 멍멍 ~ 짖어요`;
+            return s;
+        }
+
+        document.write(`<h1>${dog.bark()}</h1>`);
+
+        //cat객체는 아니고 생성자 함수. name속성(지역변수) bark함수
+        //[2] 생성자함수 // 생성자함수는 첫글자를 대게 대문자로 준다
+        function Cat(name, age){
+            this.name=name;
+            this.age=age;
+            this.bark=function(){
+                let s=`${this.name} 고양이가 야옹 ~ 울어요`;
+            return s;
+            }
+        }
+
+        let cat=new Cat("쫑이",2); // new했을때 메모리에 올라가면 객체가 된다. 지금은 cat객체
+        document.write(`<h2>${cat.bark()}</h2>`);
+
+        /*[3] JSON형식 : {} => object, [] => 배열 */
+        //JSON형식 : 자바스크립트 객체를 표기하는 형식. 
+
+        //자바에서 해쉬맵 해쉬테이블이 key값 value값으로 저장하듯이
+        let car={
+            name:'K7',
+            color:'black',
+            capacity: 3000,
+            run: function(km){
+                return `${this.name} 자동차가 시속 ${km} km로 달려요`;
+            }          
+        }
+        /* 매개변수 없는 경우
+            run: function(){
+                return `${this.name} 자동차가 달려요`
+            }
+            */
+        document.write(`<h2>${car,run(100)}</h2>`)//자동차가 출력안됨
+
+    </script>
+    
+</body>
+</html>
